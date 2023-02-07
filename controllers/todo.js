@@ -6,8 +6,13 @@ const { getTodosbyCollection, createTodo, editTodo, deleteTodo } = require("../m
  */
 
 exports.getTodosbyCollection = (req, res) => {
-  const collection_id = req.params.collection_id
-  getTodosbyCollection(id)
+  if (!req.params.id) {
+    console.log("collection_id is required")
+    return res.status(400).json({ error: "collection_id is required" })
+  }
+  const collection_id = req.params.id
+
+  getTodosbyCollection(collection_id)
     .then(([rows]) => res.json(rows))
     .catch(err => res.json(err))
 }
